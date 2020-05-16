@@ -1,0 +1,72 @@
+{
+	"Batch Size" : 100,
+
+	"Num Epochs" : 10,
+
+	"Num Samples": 10,
+    
+    "VAE Type": "HomoscedasticGaussianGaussian",
+    
+    "Variance": 1,
+
+	"Input Size": 560,
+
+	"Optimizer" : {
+		"type" : "Adagrad",
+		"meta" : {
+			"learning_rate": 1e-2
+		}
+	},
+
+	"Layer1" : {
+		"meta" : {
+			"name": "Encode1",
+			"size": 256,
+			"activation": "relu"
+		}
+	},
+    
+    "Layer2": {
+        "type": "DenseKD",
+        "meta": {
+            "name": "params_layer",
+            "to_loss": "True",
+            "K": 2,
+            "0": {
+                "name": "mu",
+                "size": 2,
+                "activation": "linear"
+            },
+            "1": {
+                "name": "log_sigma",
+                "size": 2,
+                "activation": "linear"
+            }
+        }
+    },
+    
+    "Layer3": {
+        "type" : "Sample",
+        "meta" : {
+            "name": "Sample1",
+            "distribution": "Gaussian",
+            "size": 2
+        }
+    },
+    
+   	"Layer4": {
+		"meta" : {
+			"name": "Decode1",
+			"size": 256,
+			"activation": "relu"
+		}
+	},
+    
+    "Layer5": {
+        "meta" : {
+            "name": "Decode2",
+            "size": 560,
+            "activation": "sigmoid"
+        }
+    }
+}

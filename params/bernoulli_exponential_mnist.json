@@ -1,0 +1,60 @@
+{
+	"Batch Size" : 100,
+
+	"Num Epochs" : 50,
+
+	"Num Samples": 10,
+    
+    "VAE Type": "BernoulliExponential",
+
+	"Input Size": 784,
+
+	"Optimizer" : {
+		"type" : "Adagrad",
+		"meta" : {
+			"learning_rate": 1e-2
+		}
+	},
+
+	"Layer1" : {
+		"meta" : {
+			"name": "Encode1",
+			"size": 256,
+			"activation": "relu"
+		}
+	},
+    
+    "Layer2": {
+        "meta": {
+            "name": "lambda",
+            "to_loss": "True",
+            "size": 2,
+            "activation": "softplus"
+        }
+    },
+    
+    "Layer3": {
+        "type" : "Sample",
+        "meta" : {
+            "name": "Sample1",
+            "distribution": "Exponential",
+            "size": 2
+        }
+    },
+    
+   	"Layer4": {
+		"meta" : {
+			"name": "Decode1",
+			"size": 256,
+			"activation": "relu"
+		}
+	},
+    
+   	"Layer5": {
+		"meta" : {
+			"name": "Decode2",
+            "size": 784,
+			"activation": "relu"
+		}
+	}
+}
